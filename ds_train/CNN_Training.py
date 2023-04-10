@@ -79,7 +79,7 @@ testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 ##
 # Load mapping of Unicode values to characters using pandas DataFrame
 ##
-df = pd.read_csv('CharcterMapping.csv', header=0)
+df = pd.read_csv('CharacterMapping.csv', header=0)
 
 ##
 # Convert Unicode values to characters
