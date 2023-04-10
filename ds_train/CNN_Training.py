@@ -225,7 +225,7 @@ def get_all_preds(model, loader):
 ##
 # Function to plot a confusion matrix
 ##
-def plot_confusion_matrix(cm, classes, title, normalize=False, cmap=plt.cm.Blues):
+def plot_confusion_matrix(cm, classes, title, normalize=True, cmap=plt.cm.Blues):
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized Confusion Matrix")
