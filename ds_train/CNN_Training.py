@@ -63,8 +63,8 @@ testDir = 'C:/Users/iitfypvmadmin/PycharmProjects/IIT-MSc-FYP-ML/ds_source/test'
 # Print the number of images in each set
 ##
 trainSet = datasets.ImageFolder(trainDir, transform)
-validationSet = datasets.ImageFolder(testDir, transform)
-testSet = datasets.ImageFolder(validDir, transform)
+validationSet = datasets.ImageFolder(validDir, transform)
+testSet = datasets.ImageFolder(testDir, transform)
 print("Complete Training Set - ", len(trainSet))
 print("Complete Validation Set - ", len(validationSet))
 print("Complete Test Set - ", len(testSet))
@@ -100,9 +100,10 @@ for element in unicodeList:
 ##
 # Create a list of available classes (characters)
 # Print the classes list
+# !!! Update the count to all language classes once system is in an acceptable state
 ##
 classes = []
-for i in range(31):
+for i in range(len(char_list)):
     index = int(testSet.classes[i])
     char = char_list[index]
     classes.append(char)
@@ -235,7 +236,7 @@ def plot_confusion_matrix(cm, classes, title, normalize=False, cmap=plt.cm.Blues
     print(cm)
 
     # Load a font for plotting tick labels in non-latin scripts
-    prop = fm.FontProperties(fname='IscolaPotaRegular.ttf')
+    prop = fm.FontProperties(fname='Nirmala.ttf')
 
     # Plot the confusion matrix as an image
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
@@ -506,10 +507,10 @@ def plot_AUC_ROC_curve(classList):
 
 ##
 # Plot ROC curves for multiple sets of classes
-# Once system in an acceptable state, for final training, add below codes for all classes in both sinhala and tamil dataset classes
+# !!! Once system in an acceptable state, for final training, add below codes for all classes in both sinhala and tamil dataset classes
 ##
-plot_AUC_ROC_curve([1, 2, 3, 4, 5])
-plot_AUC_ROC_curve([6, 7, 8, 9, 10])
+plot_AUC_ROC_curve([0, 1, 2, 3, 4])
+plot_AUC_ROC_curve([5, 6, 7, 8, 9])
 #plot_AUC_ROC_curve([11, 12, 13, 14, 15])
 #plot_AUC_ROC_curve([16, 17, 18, 19, 20])
 #plot_AUC_ROC_curve([21, 22, 23, 24, 25])
