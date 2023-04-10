@@ -28,7 +28,7 @@ class Net(nn.Module):
         # Max pooling layer with a kernel size of 2x2 and stride of 2
         self.pool2 = nn.MaxPool2d(2, 2)
 
-        # Convolutional layer(s) with 32 filters, kernel size of 3x3, and padding of 1
+        # Convolutional layer(s) with 64 filters, kernel size of 3x3, and padding of 1
         # Batch normalization layer for each convolutional layer
         self.conv5 = nn.Conv2d(32, 64, 3, padding=1)
         self.bn5 = nn.BatchNorm2d(64)
@@ -37,6 +37,7 @@ class Net(nn.Module):
         self.bn6 = nn.BatchNorm2d(64)
         # Max pooling layer with a kernel size of 2x2 and stride of 2
         self.pool3 = nn.MaxPool2d(2, 2)
+
 
         # Fully connected layers with 1024 and 256 output neurons
         # Batch normalization layer for each fully connected layer
@@ -69,6 +70,7 @@ class Net(nn.Module):
         # Max pooling layer 3 with a kernel size of 2x2 and stride of 2
         # Convolutional layer 6 with batch normalization, followed by ReLU activation
         x = self.pool3(F.relu(self.bn6(self.conv6(x))))
+
 
         # Flatten the output of the convolutional layers
         x = x.view(-1, 64 * 8 * 8)

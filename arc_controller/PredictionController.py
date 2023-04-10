@@ -10,7 +10,7 @@ import arc_model.CharacterModel as characterModel
 import torch.nn.functional as F
 import pandas as pd
 
-df = pd.read_csv('../ds_train/CharcterMapping.csv', header=0)
+df = pd.read_csv('./ds_train/CharacterMapping.csv', header=0)
 classesList = df["Character"].tolist()
 
 def url_to_img(dataURL):

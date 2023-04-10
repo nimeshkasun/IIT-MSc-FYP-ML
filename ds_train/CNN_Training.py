@@ -25,9 +25,9 @@ class Process(object):
     def __call__(self, img):
         # Convert the image to grayscale
         convertedImg = img.convert("L")
-        # Invert the image
+        # Invert the image (convert white pixels to black and black pixels to white)
         invertedImg = ImageOps.invert(convertedImg)
-        # Apply Max filter to the inverted image
+        # Apply Max filter to the inverted image (remove small noise and enhance the edges of the image)
         filteredImg = invertedImg.filter(ImageFilter.MaxFilter(5))
         # Resize the image to 48x48 using Lanczos interpolation
         resizeRatio = 48.0 / max(filteredImg.size)
@@ -62,24 +62,49 @@ testDir = 'C:/Users/iitfypvmadmin/PycharmProjects/IIT-MSc-FYP-ML/ds_source/test'
 # Create a dataset objects('trainSet', 'validationSet', 'testSet') for training images
 # Print the number of images in each set
 ##
-trainSet = datasets.ImageFolder(trainDir, transform)
-validationSet = datasets.ImageFolder(validDir, transform)
-testSet = datasets.ImageFolder(testDir, transform)
-print("Complete Training Set - ", len(trainSet))
-print("Complete Validation Set - ", len(validationSet))
-print("Complete Test Set - ", len(testSet))
+#trainSet = datasets.ImageFolder(trainDir, transform)
+#validationSet = datasets.ImageFolder(validDir, transform)
+#testSet = datasets.ImageFolder(testDir, transform)
+#print("Complete Training Set - ", len(trainSet))
+#print("Complete Validation Set - ", len(validationSet))
+#print("Complete Test Set - ", len(testSet))
 
 ##
 # Load train, validation and test data using PyTorch DataLoader
 ##
+#trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
+#validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
+#testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
+
+
+
+#####
+
+
+trainingSet = datasets.ImageFolder(trainDir, transform)
+print("Full Train Set - ", len(trainingSet))
+
+trainsize = int(round(0.8 * len(trainingSet)))
+trainSet, validationSet = torch.utils.data.random_split(trainingSet, [trainsize, len(trainingSet) - trainsize],
+                                                        generator=torch.Generator().manual_seed(42))
+print("Train Set - ", len(trainSet))
+print("Validation Set - ", len(validationSet))
+testSet = datasets.ImageFolder(testDir, transform)
+print("Test Set - ", len(testSet))
+
 trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
 validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
 testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 
+
+#####
+
+
+
 ##
 # Load mapping of Unicode values to characters using pandas DataFrame
 ##
-df = pd.read_csv('CharcterMapping.csv', header=0)
+df = pd.read_csv('CharacterMapping.csv', header=0)
 
 ##
 # Convert Unicode values to characters
@@ -147,7 +172,7 @@ class Net(nn.Module):
         # Max pooling layer with a kernel size of 2x2 and stride of 2
         self.pool2 = nn.MaxPool2d(2, 2)
 
-        # Convolutional layer(s) with 32 filters, kernel size of 3x3, and padding of 1
+        # Convolutional layer(s) with 64 filters, kernel size of 3x3, and padding of 1
         # Batch normalization layer for each convolutional layer
         self.conv5 = nn.Conv2d(32, 64, 3, padding=1)
         self.bn5 = nn.BatchNorm2d(64)
@@ -156,6 +181,7 @@ class Net(nn.Module):
         self.bn6 = nn.BatchNorm2d(64)
         # Max pooling layer with a kernel size of 2x2 and stride of 2
         self.pool3 = nn.MaxPool2d(2, 2)
+
 
         # Fully connected layers with 1024 and 256 output neurons
         # Batch normalization layer for each fully connected layer
@@ -188,6 +214,7 @@ class Net(nn.Module):
         # Max pooling layer 3 with a kernel size of 2x2 and stride of 2
         # Convolutional layer 6 with batch normalization, followed by ReLU activation
         x = self.pool3(F.relu(self.bn6(self.conv6(x))))
+
 
         # Flatten the output of the convolutional layers
         x = x.view(-1, 64 * 8 * 8)
@@ -225,7 +252,7 @@ def get_all_preds(model, loader):
 ##
 # Function to plot a confusion matrix
 ##
-def plot_confusion_matrix(cm, classes, title, normalize=True, cmap=plt.cm.Blues):
+def plot_confusion_matrix(cm, classes, title, normalize=False, cmap=plt.cm.Blues):
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized Confusion Matrix")
@@ -298,7 +325,7 @@ running_losses = []
 ##
 #for epoch in range(30):
 print('----------------------------------------------------')
-for epoch in range(5):
+for epoch in range(20):
     # Append current epoch number to the x list
     x.append(epoch)
 
