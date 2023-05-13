@@ -182,7 +182,6 @@ class Net(nn.Module):
         # Max pooling layer with a kernel size of 2x2 and stride of 2
         self.pool3 = nn.MaxPool2d(2, 2)
 
-
         # Fully connected layers with 1024 and 256 output neurons
         # Batch normalization layer for each fully connected layer
         self.fc1 = nn.Linear(64 * 8 * 8, 1024)
@@ -325,7 +324,7 @@ running_losses = []
 ##
 #for epoch in range(30):
 print('----------------------------------------------------')
-for epoch in range(20):
+for epoch in range(24):
     # Append current epoch number to the x list
     x.append(epoch)
 

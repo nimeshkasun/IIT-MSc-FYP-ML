@@ -91,7 +91,7 @@ function predictImage(img) {
             throw Error(data.statusText);
         }
     }).then((data) => {
-        console.log(data);
+        console.log("then((data) => void");
         let reponseObj = JSON.parse(data);
 
         let firstGuessClass = document.getElementById("firstGuessClass");
