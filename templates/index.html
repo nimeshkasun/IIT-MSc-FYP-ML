@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sinhala and Tamil Manuscript Recognition</title>
+    <title>OCR - Sinhala and Tamil</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="../static/img/logo_favicon.png"/>
     <script src="https://kit.fontawesome.com/7b5b4fcd9f.js" crossorigin="anonymous"></script>
@@ -21,14 +21,14 @@
 
     <div id="all" class="row justify-content-center">
         <div class="col-md-4">
-            <h3>How it works :</h3>
+            <!--<h3>How it works :</h3>
             <ol>
-                <li>Draw a Sinhala character or upload an image with a Sinhala character.</li>
+                <li>Draw a Sinhala character or upload an image with a Sinhala and Tamil character.</li>-->
                 <label for="filetag" class="btn btn-lg btn-primary file-upload"><i class="fa-solid fa-upload"></i> Upload</label>
                 <input type="file" id="filetag" accept="image/*">
-                <p id="suggestion"></p>
+                <!--<p id="suggestion"></p>
                 <li>Then, click "Recognize" to get the identified character.</li>
-                <li>Click "Clear" to clear the input image or canvas, and try again!</li>
+                <li>Click "Clear" to clear the input image or canvas, and try again!</li>-->
             </ol>
         </div>
 
@@ -68,18 +68,16 @@
       cb.writeText(paragraph.innerText).then(() => alert('Character copied to clipboard: '+paragraph.innerText));
     }
     </script>
-    <footer class="footer">
+    <!--<footer class="footer">
         <p>&copy; 2023 Copyright |
             Nimesh Ekanayake
         </p>
-        <!-- Linkedin -->
           <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/nimeshkasun" target="_blank" role="button"
             ><i class="fab fa-linkedin-in"></i
           ></a>
-          <!-- Github -->
           <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/nimeshkasun/IIT-MSc-FYP-ML" target="_blank" role="button"
             ><i class="fab fa-github"></i
           ></a>
-    </footer>
+    </footer>-->
 </body>
 </html>
