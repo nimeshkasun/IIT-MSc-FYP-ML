@@ -27,11 +27,13 @@ def url_to_img(dataURL):
     whiteBG = Image.fromarray(la)
 
     converted = whiteBG.convert("L")
-    inverted = ImageOps.invert(converted)
+    #inverted = ImageOps.invert(converted)
 
-    bounding_box = inverted.getbbox()
+    #bounding_box = inverted.getbbox()
+    bounding_box = converted.getbbox()
     padded_box = tuple(map(lambda i, j: i + j, bounding_box, (-5, -5, 5, 5)))
-    cropped = inverted.crop(padded_box)
+    #cropped = inverted.crop(padded_box)
+    cropped = converted.crop(padded_box)
 
     thick = cropped.filter(ImageFilter.MaxFilter(5))
 
