@@ -26,9 +26,10 @@ class Process(object):
         # Convert the image to grayscale
         convertedImg = img.convert("L")
         # Invert the image (convert white pixels to black and black pixels to white)
-        invertedImg = ImageOps.invert(convertedImg)
+        #invertedImg = ImageOps.invert(convertedImg)
         # Apply Max filter to the inverted image (remove small noise and enhance the edges of the image)
-        filteredImg = invertedImg.filter(ImageFilter.MaxFilter(5))
+        #filteredImg = invertedImg.filter(ImageFilter.MaxFilter(5))
+        filteredImg = convertedImg.filter(ImageFilter.MaxFilter(5))
         # Resize the image to 48x48 using Lanczos interpolation
         resizeRatio = 48.0 / max(filteredImg.size)
         newSize = tuple([int(round(x * resizeRatio)) for x in filteredImg.size])
@@ -62,38 +63,38 @@ testDir = 'C:/Users/iitfypvmadmin/PycharmProjects/IIT-MSc-FYP-ML/ds_source/test'
 # Create a dataset objects('trainSet', 'validationSet', 'testSet') for training images
 # Print the number of images in each set
 ##
-trainSet = datasets.ImageFolder(trainDir, transform)
-validationSet = datasets.ImageFolder(validDir, transform)
-testSet = datasets.ImageFolder(testDir, transform)
-print("Complete Training Set - ", len(trainSet))
-print("Complete Validation Set - ", len(validationSet))
-print("Complete Test Set - ", len(testSet))
+#trainSet = datasets.ImageFolder(trainDir, transform)
+#validationSet = datasets.ImageFolder(validDir, transform)
+#testSet = datasets.ImageFolder(testDir, transform)
+#print("Complete Training Set - ", len(trainSet))
+#print("Complete Validation Set - ", len(validationSet))
+#print("Complete Test Set - ", len(testSet))
 
 ##
 # Load train, validation and test data using PyTorch DataLoader
 ##
-trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
-validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
-testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
+#trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
+#validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
+#testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 
 
 
 #####
 
-#trainingSet = datasets.ImageFolder(trainDir, transform)
-#print("Full Train Set - ", len(trainingSet))
+trainingSet = datasets.ImageFolder(trainDir, transform)
+print("Full Train Set - ", len(trainingSet))
 
-#trainsize = int(round(0.8 * len(trainingSet)))
-#trainSet, validationSet = torch.utils.data.random_split(trainingSet, [trainsize, len(trainingSet) - trainsize],
-#                                                        generator=torch.Generator().manual_seed(42))
-#print("Train Set - ", len(trainSet))
-#print("Validation Set - ", len(validationSet))
-#testSet = datasets.ImageFolder(testDir, transform)
-#print("Test Set - ", len(testSet))
+trainsize = int(round(0.8 * len(trainingSet)))
+trainSet, validationSet = torch.utils.data.random_split(trainingSet, [trainsize, len(trainingSet) - trainsize],
+                                                        generator=torch.Generator().manual_seed(42))
+print("Train Set - ", len(trainSet))
+print("Validation Set - ", len(validationSet))
+testSet = datasets.ImageFolder(testDir, transform)
+print("Test Set - ", len(testSet))
 
-#trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
-#validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
-#testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
+trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
+validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
+testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 
 #####
 
@@ -189,6 +190,7 @@ class Net(nn.Module):
         self.fc3 = nn.Linear(256, 31)
 
     def forward(self, x):
+        #print('Input size:', x.size())
         # Convolutional layer 1 with batch normalization, followed by ReLU activation
         x = F.relu(self.bn1(self.conv1(x)))
 
@@ -215,12 +217,23 @@ class Net(nn.Module):
 
         # Flatten the output of the convolutional layers
         x = x.view(-1, 64 * 8 * 8)
+        #print('After flattening:', x.size())
         # Fully connected layers with batch normalization, followed by ReLU activation
         x = F.relu(self.bn7(self.fc1(x)))
         x = F.relu(self.bn8(self.fc2(x)))
 
+        #if x.size(0) == 1 and x.size(1) == 1024:
+        #    x = F.relu(self.fc1(x))
+        #    x = F.relu(self.fc2(x))
+        #else:
+        #    x = F.relu(self.bn7(self.fc1(x)))
+            #print('After fc1:', x.size())
+        #    x = F.relu(self.bn8(self.fc2(x)))
+            #print('After fc2:', x.size())
+
         # Output layer with no activation function applied
         x = self.fc3(x)
+        #print('Output size:', x.size())
         return x
 
 ##
