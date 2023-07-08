@@ -62,40 +62,38 @@ testDir = 'C:/Users/iitfypvmadmin/PycharmProjects/IIT-MSc-FYP-ML/ds_source/test'
 # Create a dataset objects('trainSet', 'validationSet', 'testSet') for training images
 # Print the number of images in each set
 ##
-#trainSet = datasets.ImageFolder(trainDir, transform)
-#validationSet = datasets.ImageFolder(validDir, transform)
-#testSet = datasets.ImageFolder(testDir, transform)
-#print("Complete Training Set - ", len(trainSet))
-#print("Complete Validation Set - ", len(validationSet))
-#print("Complete Test Set - ", len(testSet))
+trainSet = datasets.ImageFolder(trainDir, transform)
+validationSet = datasets.ImageFolder(validDir, transform)
+testSet = datasets.ImageFolder(testDir, transform)
+print("Complete Training Set - ", len(trainSet))
+print("Complete Validation Set - ", len(validationSet))
+print("Complete Test Set - ", len(testSet))
 
 ##
 # Load train, validation and test data using PyTorch DataLoader
 ##
-#trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
-#validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
-#testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
+trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
+validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
+testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 
 
 
 #####
 
+#trainingSet = datasets.ImageFolder(trainDir, transform)
+#print("Full Train Set - ", len(trainingSet))
 
-trainingSet = datasets.ImageFolder(trainDir, transform)
-print("Full Train Set - ", len(trainingSet))
+#trainsize = int(round(0.8 * len(trainingSet)))
+#trainSet, validationSet = torch.utils.data.random_split(trainingSet, [trainsize, len(trainingSet) - trainsize],
+#                                                        generator=torch.Generator().manual_seed(42))
+#print("Train Set - ", len(trainSet))
+#print("Validation Set - ", len(validationSet))
+#testSet = datasets.ImageFolder(testDir, transform)
+#print("Test Set - ", len(testSet))
 
-trainsize = int(round(0.8 * len(trainingSet)))
-trainSet, validationSet = torch.utils.data.random_split(trainingSet, [trainsize, len(trainingSet) - trainsize],
-                                                        generator=torch.Generator().manual_seed(42))
-print("Train Set - ", len(trainSet))
-print("Validation Set - ", len(validationSet))
-testSet = datasets.ImageFolder(testDir, transform)
-print("Test Set - ", len(testSet))
-
-trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
-validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
-testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
-
+#trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
+#validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
+#testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 
 #####
 
