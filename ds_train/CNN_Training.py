@@ -29,11 +29,14 @@ class Process(object):
         #invertedImg = ImageOps.invert(convertedImg)
         # Apply Max filter to the inverted image (remove small noise and enhance the edges of the image)
         #filteredImg = invertedImg.filter(ImageFilter.MaxFilter(5))
-        filteredImg = convertedImg.filter(ImageFilter.MaxFilter(5))
+        #filteredImg = convertedImg.filter(ImageFilter.MaxFilter(5))
         # Resize the image to 48x48 using Lanczos interpolation
-        resizeRatio = 48.0 / max(filteredImg.size)
-        newSize = tuple([int(round(x * resizeRatio)) for x in filteredImg.size])
-        resizeImg = filteredImg.resize(newSize, Image.LANCZOS)
+        #resizeRatio = 48.0 / max(filteredImg.size)
+        resizeRatio = 48.0 / max(convertedImg.size)
+        #newSize = tuple([int(round(x * resizeRatio)) for x in filteredImg.size])
+        newSize = tuple([int(round(x * resizeRatio)) for x in convertedImg.size])
+        #resizeImg = filteredImg.resize(newSize, Image.LANCZOS)
+        resizeImg = convertedImg.resize(newSize, Image.LANCZOS)
 
         # Convert the resized image to a numpy array
         resizeImgArray = np.asarray(resizeImg)
@@ -333,9 +336,9 @@ running_losses = []
 # Loop through 30 epochs
 # !!! For now, it loops through 5 for the code testing and till the system is in an acceptable state
 ##
-#for epoch in range(30):
+#for epoch in range(30): 24
 print('----------------------------------------------------')
-for epoch in range(24):
+for epoch in range(62):
     # Append current epoch number to the x list
     x.append(epoch)
 
