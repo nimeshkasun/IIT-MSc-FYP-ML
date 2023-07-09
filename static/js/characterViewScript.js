@@ -14,7 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.style.display = "block";
 
     const ctx = canvas.getContext("2d");
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#000000';
+    ctx.fillStyle = '#ffffff';
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
@@ -71,6 +73,13 @@ function submitImage() {
     if (!imgUploaded) {
         let canvas = document.getElementById("canvas");
         img = canvas.toDataURL();
+
+        /*let randomNumber = Math.floor(Math.random() * 100000); // Generate a random number
+        let filename = 'canvas_image_' + randomNumber + '.png';
+        let link = document.createElement('a');
+        link.href = img;
+        link.download = filename;
+        link.click();*/
     } else {
         img = uploadedImg;
     }
