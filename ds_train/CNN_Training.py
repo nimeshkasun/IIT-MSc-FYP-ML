@@ -190,7 +190,7 @@ class Net(nn.Module):
         self.bn7 = nn.BatchNorm1d(1024)
         self.fc2 = nn.Linear(1024, 256)
         self.bn8 = nn.BatchNorm1d(256)
-        self.fc3 = nn.Linear(256, 31)
+        self.fc3 = nn.Linear(256, 62)
 
     def forward(self, x):
         #print('Input size:', x.size())
@@ -487,7 +487,8 @@ with torch.no_grad():
 # Calculate and plot the confusion matrix for the test set
 ##
 cmTesting = confusion_matrix(testSet.targets, test_preds.argmax(dim=1))
-plt.figure(figsize=(31, 31))
+## Total class count as xx, xx below
+plt.figure(figsize=(62, 62))
 plot_confusion_matrix(cmTesting, classes, "Confusion Matrix for Test Set")
 
 ##
@@ -555,6 +556,7 @@ plot_AUC_ROC_curve([5, 6, 7, 8, 9])
 #plot_AUC_ROC_curve([16, 17, 18, 19, 20])
 #plot_AUC_ROC_curve([21, 22, 23, 24, 25])
 #plot_AUC_ROC_curve([26, 27, 28, 29, 30])
+#plot_AUC_ROC_curve([26, 27, 28, 29, 30...])
 
 ##
 # Save the trained PyTorch model

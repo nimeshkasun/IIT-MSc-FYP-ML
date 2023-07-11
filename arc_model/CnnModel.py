@@ -2,7 +2,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 ##
-# Should be copid from @ds_train/CNN_Training.py > Net()
+# Should be copied from @ds_train/CNN_Training.py > Net()
 ##
 class Net(nn.Module):
     def __init__(self):
