@@ -2,7 +2,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 ##
-# Should be copid from @ds_train/CNN_Training.py > Net()
+# Should be copied from @ds_train/CNN_Training.py > Net()
 ##
 class Net(nn.Module):
     def __init__(self):
@@ -45,7 +45,7 @@ class Net(nn.Module):
         self.bn7 = nn.BatchNorm1d(1024)
         self.fc2 = nn.Linear(1024, 256)
         self.bn8 = nn.BatchNorm1d(256)
-        self.fc3 = nn.Linear(256, 31)
+        self.fc3 = nn.Linear(256, 62)
 
     def forward(self, x):
         # Convolutional layer 1 with batch normalization, followed by ReLU activation
