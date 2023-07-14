@@ -336,7 +336,7 @@ running_losses = []
 # Loop through 30 epochs
 # !!! For now, it loops through 5 for the code testing and till the system is in an acceptable state
 ##
-#for epoch in range(30): 24
+#for epoch in range(30): 24 | 62
 print('----------------------------------------------------')
 for epoch in range(62):
     # Append current epoch number to the x list
@@ -550,15 +550,26 @@ def plot_AUC_ROC_curve(classList):
 # Plot ROC curves for multiple sets of classes
 # !!! Once system in an acceptable state, for final training, add below codes for all classes in both sinhala and tamil dataset classes
 ##
+
+
 plot_AUC_ROC_curve([0, 1, 2, 3, 4])
 plot_AUC_ROC_curve([5, 6, 7, 8, 9])
-#plot_AUC_ROC_curve([11, 12, 13, 14, 15])
-#plot_AUC_ROC_curve([16, 17, 18, 19, 20])
-#plot_AUC_ROC_curve([21, 22, 23, 24, 25])
-#plot_AUC_ROC_curve([26, 27, 28, 29, 30])
-#plot_AUC_ROC_curve([26, 27, 28, 29, 30...])
+plot_AUC_ROC_curve([11, 12, 13, 14, 15])
+plot_AUC_ROC_curve([16, 17, 18, 19, 20])
+plot_AUC_ROC_curve([21, 22, 23, 24, 25])
+plot_AUC_ROC_curve([26, 27, 28, 29, 30])
+plot_AUC_ROC_curve([31, 32, 33, 34, 35])
+plot_AUC_ROC_curve([36, 37, 38, 39, 40])
+plot_AUC_ROC_curve([41, 42, 43, 44, 45])
+plot_AUC_ROC_curve([46, 47, 48, 49, 50])
+plot_AUC_ROC_curve([51, 52, 53, 54, 55])
+plot_AUC_ROC_curve([56, 57, 58, 59, 60])
+# plot_AUC_ROC_curve([61, 62, 63, 64, 65])
+# plot_AUC_ROC_curve([66, 67, 68, 69, 70])
 
 ##
 # Save the trained PyTorch model
 ##
 torch.save(net.state_dict(), '../ds_trained/SinhalaTamil_CNN_Trained.pt')
+
+print("Training completed! Trained model saved to: ../ds_trained/SinhalaTamil_CNN_Trained.pt")
