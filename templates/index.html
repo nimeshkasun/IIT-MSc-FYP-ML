@@ -14,21 +14,23 @@
 <body>
     <div class="nav-bar">
         <div class="page-name">
-            <img src="../static/img/logo_ui.png">
-            <div class="name"></div>
+            <a href="./">
+                <img src="../static/img/logo_ui.png">
+                <div class="name"></div>
+            </a>
         </div>
     </div>
 
     <div id="all" class="row justify-content-center">
         <div class="col-md-4">
-            <!--<h3>How it works :</h3>
+            <h3>How it works :</h3>
             <ol>
-                <li>Draw a Sinhala character or upload an image with a Sinhala and Tamil character.</li>-->
+                <li>Draw a Sinhala or Tamil character or upload an image with a Sinhala or Tamil character. <br/>Tip: Image should be black letters in a white/ gradient background.</li>
                 <label for="filetag" class="btn btn-lg btn-primary file-upload"><i class="fa-solid fa-upload"></i> Upload</label>
                 <input type="file" id="filetag" accept="image/*">
-                <!--<p id="suggestion"></p>
+                <p id="suggestion"></p>
                 <li>Then, click "Recognize" to get the identified character.</li>
-                <li>Click "Clear" to clear the input image or canvas, and try again!</li>-->
+                <li>Click "Clear" to clear the input image or canvas, and try again!</li>
             </ol>
         </div>
 
@@ -68,7 +70,7 @@
       cb.writeText(paragraph.innerText).then(() => alert('Character copied to clipboard: '+paragraph.innerText));
     }
     </script>
-    <!--<footer class="footer">
+    <footer class="footer">
         <p>&copy; 2023 Copyright |
             Nimesh Ekanayake
         </p>
@@ -78,6 +80,6 @@
           <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/nimeshkasun/IIT-MSc-FYP-ML" target="_blank" role="button"
             ><i class="fab fa-github"></i
           ></a>
-    </footer>-->
+    </footer>
 </body>
 </html>
