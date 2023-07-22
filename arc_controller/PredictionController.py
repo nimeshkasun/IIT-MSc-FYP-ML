@@ -71,13 +71,16 @@ def url_to_img(dataURL):
     # Generate a random file name
     # Generate a random file name with text and numbers
     characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    file_name_non_processed = "white_" + ''.join(random.choice(characters) for _ in range(8)) + ".png"
     file_name = ''.join(random.choice(characters) for _ in range(8)) + ".png"
     # Specify the folder path to save the image
     folder_path = "generated/canvas_drawings/"
     # Create the folder if it doesn't exist
     os.makedirs(folder_path, exist_ok=True)
     # Save the image to the specified folder with the random file name
+    file_path_non_processed = os.path.join(folder_path, file_name_non_processed)
     file_path = os.path.join(folder_path, file_name)
+    converted.save(file_path_non_processed)
     result.save(file_path)
     print("Canvas processed image saved to:", file_path)
 
