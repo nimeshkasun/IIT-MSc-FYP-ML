@@ -333,10 +333,10 @@ x_two = []
 running_losses = []
 
 ##
-# Loop through 30 epochs
+# Loop through 156 epochs
 # !!! For now, it loops through 5 for the code testing and till the system is in an acceptable state
 ##
-#for epoch in range(30): 24 | 62 | 156
+#for epoch in range(156): 24 | 62 | 156
 print('----------------------------------------------------')
 for epoch in range(156):
     # Append current epoch number to the x list
