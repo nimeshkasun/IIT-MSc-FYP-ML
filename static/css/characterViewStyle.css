@@ -70,11 +70,12 @@ button {
 
 .footer {
     text-align: center;
-    color: white;
+    color: hsla(217, 100%, 50%, 1);
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #0008;
+    z-index: 100;
+    /*background-color: #0008;-->*/
 }
 
 .footer p {
@@ -83,6 +84,26 @@ button {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+}
+
+.footer-a{
+    z-index: 100;
+    background-color: hsla(217, 100%, 50%, 1);
+}
+
+.footer-a:hover{
+    z-index: 100;
+    background-color: hsla(217, 100%, 50%, 1);
+}
+
+.footer-icon{
+    z-index: 100;
+    color: #FFFFFF;
+}
+
+.footer-icon:hover{
+    z-index: 100;
+    color: #FFFFFF;
 }
 
 #info {
