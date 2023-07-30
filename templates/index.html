@@ -11,12 +11,58 @@
     <link rel="stylesheet" href="../static/css/characterViewStyle.css">
     <script src="../static/js/characterViewScript.js"></script>
 
-    <link rel="stylesheet" href="../static/css/toast.css" type="text/css" />
-    <link rel="stylesheet" href="./toast.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-        crossorigin="anonymous" />
+    <link rel="stylesheet" href="../static/css/toast.css" type="text/css"/>
+    <link rel="stylesheet" href="./toast.css"
+          integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+          crossorigin="anonymous"/>
 
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        div.wave {
+            width: 100%;
+            bottom: 0;
+            position: absolute;
+            z-index: 99;
+        }
+
+        .wave svg {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        #container {
+            position: relative;
+            background: linear-gradient(90deg, hsla(217, 100%, 50%, 1) 0%, hsla(286, 100%, 69%, 1) 100%);
+            height: 90vh;
+        }
+    </style>
 </head>
 <body>
+
+<div class="wave">
+    <svg width="100%" height="210px" fill="none" version="1.1"
+         xmlns="http://www.w3.org/2000/svg">
+        <path
+                fill="white"
+                d="
+            M0 67
+            C 273,183
+              822,-41
+              1920.01,106
+            V 359
+            H 0
+            V 67
+            Z">
+        </path>
+    </svg>
+</div>
+<div id="container">
     <div class="nav-bar">
         <div class="page-name">
             <a href="./">
@@ -30,8 +76,12 @@
         <div class="col-md-4">
             <h3>How it works :</h3>
             <ol>
-                <li>Draw a Sinhala or Tamil character or upload an image with a Sinhala or Tamil character. <br/>Tip: Image should be black letters in a white/ gradient background.</li>
-                <label for="filetag" class="btn btn-lg btn-primary file-upload"><i class="fa-solid fa-upload"></i> Upload</label>
+                <li>Draw a Sinhala or Tamil character or upload an image with a Sinhala or Tamil character. <br/>Tip:
+                    Image
+                    should be black letters in a white/ gradient background.
+                </li>
+                <label for="filetag" class="btn btn-lg btn-primary file-upload"><i class="fa-solid fa-upload"></i>
+                    Upload</label>
                 <input type="file" id="filetag" accept="image/*">
                 <p id="suggestion"></p>
                 <li>Then, click "Recognize" to get the identified character.</li>
@@ -45,8 +95,12 @@
                 <img src="" id="preview" width="250px">
             </div>
             <div id="buttons">
-                <button type="button" class="btn btn-danger btn-block" onclick="clearCanvas()"><i class="fa-solid fa-eraser"></i> Clear</button>
-                <button type="button" class="btn btn-success btn-block" onclick="submitImage()"><i class="fa-brands fa-searchengin"></i> Recognize</button>
+                <button type="button" class="btn btn-danger btn-block" onclick="clearCanvas()"><i
+                        class="fa-solid fa-eraser"></i> Clear
+                </button>
+                <button type="button" class="btn btn-success btn-block" onclick="submitImage()"><i
+                        class="fa-brands fa-searchengin"></i> Recognize
+                </button>
             </div>
         </div>
 
@@ -63,34 +117,51 @@
 
                 <input type="hidden" id="firstGuessClass" value="">
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-secondary" id="info" onclick="handleCopyTextFromParagraph()"><i class="fa-solid fa-copy"></i> Copy</button>
+                    <button type="button" class="btn btn-secondary" id="info" onclick="handleCopyTextFromParagraph()"><i
+                            class="fa-solid fa-copy"></i> Copy
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-    function handleCopyTextFromParagraph() {
-      const cb = navigator.clipboard;
-      const paragraph = document.getElementById("guess");
-      cb.writeText(paragraph.innerText).then(() => alert('Character copied to clipboard: '+paragraph.innerText));
-    }
-    </script>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="../static/js/toast.js"></script>
-    <script src="./toast.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="../static/js/toast.js"></script>
+<script src="./toast.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous"></script>
 
-    <footer class="footer">
-        <p>&copy; 2023 Copyright |
-            Nimesh Ekanayake
-        </p>
-          <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/nimeshkasun" target="_blank" role="button"
-            ><i class="fab fa-linkedin-in"></i
-          ></a>
-          <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/nimeshkasun/IIT-MSc-FYP-ML" target="_blank" role="button"
-            ><i class="fab fa-github"></i
-          ></a>
-    </footer>
+<script>
+    function handleCopyTextFromParagraph() {
+        const cb = navigator.clipboard;
+        const paragraph = document.getElementById("guess");
+        cb.writeText(paragraph.innerText);//.then(() => alert('Character copied to clipboard: ' + paragraph.innerText));
+
+        toastr.options = {
+            preventDuplicates: true,
+            timeOut: 5000,
+            progressBar: true,
+            positionClass: "toast-bottom-right"
+        }
+        toastr.success(`Character copied to clipboard: ` + paragraph.innerText, 'Success!')
+    }
+</script>
+
+<footer class="footer">
+    <p>&copy; 2023 Copyright |
+        Nimesh Ekanayake
+    </p>
+    <a class="btn btn-outline-light btn-floating m-1 footer-a" href="https://www.linkedin.com/in/nimeshkasun" target="_blank"
+       role="button"
+    ><i class="fab fa-linkedin-in footer-icon"></i
+    ></a>
+    <a class="btn btn-outline-light btn-floating m-1 footer-a" href="https://github.com/nimeshkasun/IIT-MSc-FYP-ML"
+       target="_blank" role="button"
+    ><i class="fab fa-github footer-icon"></i
+    ></a>
+</footer>
+
 </body>
 </html>

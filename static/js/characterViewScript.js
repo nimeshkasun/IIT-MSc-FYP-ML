@@ -115,14 +115,22 @@ function predictImage(img) {
         let infoBtn = document.getElementById("info");
         infoBtn.style.display = "inline";
 
-        if (reponseObj._firstGuessConfidentLvl < 350) {
+        if (reponseObj._firstGuessConfidentLvl < 200) {
             toastr.options = {
                 preventDuplicates: true,
                 timeOut: 4000,
                 progressBar: true,
                 positionClass: "toast-bottom-right"
             }
-            toastr.warning(`Prediction could be a character or non-character!`, 'Warning!')
+            toastr.error(`Input could be a non-character!`, 'Identification Concern!');
+        }else if (reponseObj._firstGuessConfidentLvl < 350) {
+            toastr.options = {
+                preventDuplicates: true,
+                timeOut: 4000,
+                progressBar: true,
+                positionClass: "toast-bottom-right"
+            }
+            toastr.warning(`Prediction could be a character or non-character!`, 'Warning!');
         } else {
             toastr.options = {
                 preventDuplicates: true,
@@ -130,7 +138,7 @@ function predictImage(img) {
                 progressBar: true,
                 positionClass: "toast-bottom-right"
             }
-            toastr.success(`Prediction completed!`, 'Success!')
+            toastr.success(`Prediction completed!`, 'Success!');
         }
 
     }).catch((error) => {
@@ -174,7 +182,7 @@ function clearCanvas() {
 
     toastr.options = {
         preventDuplicates: true,
-        timeOut: 4000,
+        timeOut: 2000,
         progressBar: true,
         positionClass: "toast-bottom-right"
     }
