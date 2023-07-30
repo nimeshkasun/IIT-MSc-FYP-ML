@@ -68,7 +68,7 @@ button {
     width: 100%;
 }
 
-#how-section{
+#how-section {
     margin-left: 5%;
 }
 
@@ -90,22 +90,22 @@ button {
     margin-inline-end: 0px;
 }
 
-.footer-a{
+.footer-a {
     /*z-index: 100;*/
     background-color: hsla(217, 100%, 50%, 1);
 }
 
-.footer-a:hover{
+.footer-a:hover {
     /*z-index: 100;*/
     background-color: hsla(217, 100%, 50%, 1);
 }
 
-.footer-icon{
+.footer-icon {
     z-index: 100;
     color: #FFFFFF;
 }
 
-.footer-icon:hover{
+.footer-icon:hover {
     z-index: 100;
     color: #FFFFFF;
 }

@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 ##
 # Should be copied from @ds_train/CNN_Training.py > Net()
 ##
@@ -38,7 +39,6 @@ class Net(nn.Module):
         # Max pooling layer with a kernel size of 2x2 and stride of 2
         self.pool3 = nn.MaxPool2d(2, 2)
 
-
         # Fully connected layers with 1024 and 256 output neurons
         # Batch normalization layer for each fully connected layer
         self.fc1 = nn.Linear(64 * 8 * 8, 1024)
@@ -55,7 +55,6 @@ class Net(nn.Module):
         # Convolutional layer 2 with batch normalization, followed by ReLU activation
         x = self.pool1(F.relu(self.bn2(self.conv2(x))))
 
-
         # Convolutional layer 3 with batch normalization, followed by ReLU activation
         x = F.relu(self.bn3(self.conv3(x)))
 
@@ -63,14 +62,12 @@ class Net(nn.Module):
         # Convolutional layer 4 with batch normalization, followed by ReLU activation
         x = self.pool2(F.relu(self.bn4(self.conv4(x))))
 
-
         # Convolutional layer 5 with batch normalization, followed by ReLU activation
         x = F.relu(self.bn5(self.conv5(x)))
 
         # Max pooling layer 3 with a kernel size of 2x2 and stride of 2
         # Convolutional layer 6 with batch normalization, followed by ReLU activation
         x = self.pool3(F.relu(self.bn6(self.conv6(x))))
-
 
         # Flatten the output of the convolutional layers
         x = x.view(-1, 64 * 8 * 8)
@@ -81,5 +78,6 @@ class Net(nn.Module):
         # Output layer with no activation function applied
         x = self.fc3(x)
         return x
+
 
 net = Net()

@@ -16,6 +16,7 @@ import string
 df = pd.read_csv('./ds_train/CharacterMapping.csv', header=0)
 classesList = df["Character"].tolist()
 
+
 def url_to_img(dataURL):
     # Convert dataURL to string
     string = str(dataURL)
@@ -80,7 +81,7 @@ def url_to_img(dataURL):
     # Save the image to the specified folder with the random file name
     file_path_non_processed = os.path.join(folder_path, file_name_non_processed)
     file_path = os.path.join(folder_path, file_name)
-    #converted.save(file_path_non_processed)
+    # converted.save(file_path_non_processed)
     result.save(file_path)
     print("Canvas processed image saved to:", file_path)
 
@@ -109,4 +110,3 @@ def get_prediction(url, net):
                                      confidence1)
 
     return json.dumps(guess.__dict__)
-
