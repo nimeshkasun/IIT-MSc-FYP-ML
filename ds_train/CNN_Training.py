@@ -336,9 +336,9 @@ running_losses = []
 # Loop through 30 epochs
 # !!! For now, it loops through 5 for the code testing and till the system is in an acceptable state
 ##
-#for epoch in range(30): 24 | 62
+#for epoch in range(30): 24 | 62 | 156
 print('----------------------------------------------------')
-for epoch in range(62):
+for epoch in range(156):
     # Append current epoch number to the x list
     x.append(epoch)
 
@@ -552,20 +552,37 @@ def plot_AUC_ROC_curve(classList):
 ##
 
 
+print("AUC ROC Curve plotting started!")
+
+
 plot_AUC_ROC_curve([0, 1, 2, 3, 4])
+print("AUC ROC Curve (0-4) - Done!")
 plot_AUC_ROC_curve([5, 6, 7, 8, 9])
-plot_AUC_ROC_curve([11, 12, 13, 14, 15])
-plot_AUC_ROC_curve([16, 17, 18, 19, 20])
-plot_AUC_ROC_curve([21, 22, 23, 24, 25])
-plot_AUC_ROC_curve([26, 27, 28, 29, 30])
-plot_AUC_ROC_curve([31, 32, 33, 34, 35])
-plot_AUC_ROC_curve([36, 37, 38, 39, 40])
-plot_AUC_ROC_curve([41, 42, 43, 44, 45])
-plot_AUC_ROC_curve([46, 47, 48, 49, 50])
-plot_AUC_ROC_curve([51, 52, 53, 54, 55])
-plot_AUC_ROC_curve([56, 57, 58, 59, 60])
-# plot_AUC_ROC_curve([61, 62, 63, 64, 65])
+print("AUC ROC Curve (5-9) - Done!")
+plot_AUC_ROC_curve([10, 11, 12, 13, 14])
+print("AUC ROC Curve (10-14) - Done!")
+plot_AUC_ROC_curve([15, 16, 17, 18, 19])
+print("AUC ROC Curve (15-19) - Done!")
+plot_AUC_ROC_curve([20, 21, 22, 23, 24])
+print("AUC ROC Curve (20-24) - Done!")
+plot_AUC_ROC_curve([25, 26, 27, 28, 29])
+print("AUC ROC Curve (25-29) - Done!")
+plot_AUC_ROC_curve([30, 31, 32, 33, 34])
+print("AUC ROC Curve (30-34) - Done!")
+plot_AUC_ROC_curve([35, 36, 37, 38, 39])
+print("AUC ROC Curve (35-39) - Done!")
+plot_AUC_ROC_curve([40, 41, 42, 43, 44])
+print("AUC ROC Curve (40-44) - Done!")
+plot_AUC_ROC_curve([45, 46, 47, 48, 49])
+print("AUC ROC Curve (45-49) - Done!")
+plot_AUC_ROC_curve([50, 51, 52, 53, 54])
+print("AUC ROC Curve (50-54) - Done!")
+plot_AUC_ROC_curve([55, 56, 57, 58, 59])
+print("AUC ROC Curve (55-59) - Done!")
+# plot_AUC_ROC_curve([60, 61, 62, 63, 64])
+# print("AUC ROC Curve (60-64) - Done!")
 # plot_AUC_ROC_curve([66, 67, 68, 69, 70])
+# print("AUC ROC Curve (65-69) - Done!")
 
 ##
 # Save the trained PyTorch model
