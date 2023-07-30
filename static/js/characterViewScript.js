@@ -115,10 +115,36 @@ function predictImage(img) {
         let infoBtn = document.getElementById("info");
         infoBtn.style.display = "inline";
 
+        if (reponseObj._firstGuessConfidentLvl < 350) {
+            toastr.options = {
+                preventDuplicates: true,
+                timeOut: 4000,
+                progressBar: true,
+                positionClass: "toast-bottom-right"
+            }
+            toastr.warning(`Prediction could be a character or non-character!`, 'Warning!')
+        } else {
+            toastr.options = {
+                preventDuplicates: true,
+                timeOut: 4000,
+                progressBar: true,
+                positionClass: "toast-bottom-right"
+            }
+            toastr.success(`Prediction completed!`, 'Success!')
+        }
+
     }).catch((error) => {
         console.log(error);
+        toastr.options = {
+            preventDuplicates: true,
+            timeOut: 4000,
+            progressBar: true,
+            positionClass: "toast-bottom-right"
+        }
+        toastr.error(`No input found for prediction!`, 'Error!')
     });
 }
+
 
 function clearCanvas() {
     const canvas = document.getElementById("canvas");
@@ -146,6 +172,14 @@ function clearCanvas() {
     const confidence = document.getElementById("confidence");
     confidence.textContent = "";
 
+    toastr.options = {
+        preventDuplicates: true,
+        timeOut: 4000,
+        progressBar: true,
+        positionClass: "toast-bottom-right"
+    }
+    toastr.success(`Canvas cleared!`, 'Success!')
+
 }
 
 function suggest() {
@@ -154,7 +188,7 @@ function suggest() {
         .then(data => suggestion.textContent = "Want a suggestion to draw on canvas?  Draw " + data + " .");
 }
 
-function closeModal(){
+function closeModal() {
     let modal = document.getElementById("myModal");
     modal.style.display = "none";
 }
