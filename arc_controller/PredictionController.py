@@ -109,3 +109,4 @@ def get_prediction(url, net):
                                      confidence1)
 
     return json.dumps(guess.__dict__)
+
