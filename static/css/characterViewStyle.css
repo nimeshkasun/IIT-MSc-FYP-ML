@@ -1,9 +1,9 @@
 body {
-    /*background: radial-gradient(circle, lightgrey, grey);*/
-    background-image: url("../img/background.jpg");
+    background: linear-gradient(90deg, hsla(217, 100%, 50%, 1) 0%, hsla(286, 100%, 69%, 1) 100%);
+    /*background-image: url("../img/background.jpg");*/
     height: 100%;
     margin: 0;
-    background-size: cover;
+    /*background-size: cover;*/
     color: white;
 }
 
@@ -68,13 +68,17 @@ button {
     width: 100%;
 }
 
+#how-section{
+    margin-left: 5%;
+}
+
 .footer {
     text-align: center;
     color: hsla(217, 100%, 50%, 1);
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 100;
+    /*z-index: 100;*/
     /*background-color: #0008;-->*/
 }
 
@@ -87,12 +91,12 @@ button {
 }
 
 .footer-a{
-    z-index: 100;
+    /*z-index: 100;*/
     background-color: hsla(217, 100%, 50%, 1);
 }
 
 .footer-a:hover{
-    z-index: 100;
+    /*z-index: 100;*/
     background-color: hsla(217, 100%, 50%, 1);
 }
 
@@ -107,7 +111,7 @@ button {
 }
 
 #info {
-    margin: 100% auto;
+    margin: auto;
 }
 
 .modal {

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCR - Sinhala and Tamil</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="../static/img/logo_favicon.png"/>
@@ -20,17 +21,20 @@
         body {
             height: 100%;
             margin: 0;
+            touch-action: none;
+            /*position: relative;*/
+            /*padding-bottom: 500px;*/
         }
 
         div.wave {
             width: 100%;
             bottom: 0;
-            position: absolute;
-            z-index: 99;
+            position: relative;
+            z-index: 1;
         }
 
         .wave svg {
-            position: absolute;
+            position: fixed;
             width: 100%;
             bottom: 0;
             left: 0;
@@ -39,12 +43,85 @@
         #container {
             position: relative;
             background: linear-gradient(90deg, hsla(217, 100%, 50%, 1) 0%, hsla(286, 100%, 69%, 1) 100%);
-            height: 90vh;
+            height: 100vh;
+        }
+
+        #body-div {
+            padding-bottom: 300px;
         }
     </style>
 </head>
 <body>
 
+<div id="container">
+    <div id="body-div">
+        <div class="nav-bar">
+            <div class="page-name">
+                <a href="./">
+                    <img src="../static/img/logo_ui.png">
+                    <div class="name"></div>
+                </a>
+            </div>
+        </div>
+
+        <div id="all" class="row justify-content-center">
+            <div class="col-md-4" id="how-section">
+                <h3>How it works:</h3>
+                <ol>
+                    <li>Draw a Sinhala or Tamil character or upload an image with a Sinhala or Tamil character. <br/>Tip:
+                        Image
+                        should be black letters in a white/ gradient background.
+                    </li>
+                    <label for="filetag" class="btn btn-lg btn-primary file-upload"><i class="fa-solid fa-upload"></i>
+                        Upload</label>
+                    <input type="file" id="filetag" accept="image/*">
+                    <p id="suggestion"></p>
+                    <li>Then, click "Recognize" to get the identified character.</li>
+                    <li>Click "Clear" to clear the input image or canvas, and try again!</li>
+                </ol>
+            </div>
+
+            <center>
+                <div id="drawarea" class="col-md-auto">
+                    <canvas id="canvas" width="250px" height="250px"></canvas>
+                    <div id="inputimg">
+                        <img src="" id="preview" width="250px">
+                    </div>
+                    <div id="buttons">
+                        <button type="button" class="btn btn-danger btn-block" onclick="clearCanvas()"><i
+                                class="fa-solid fa-eraser"></i> Clear
+                        </button>
+                        <button type="button" class="btn btn-success btn-block" onclick="submitImage()"><i
+                                class="fa-brands fa-searchengin"></i> Recognize
+                        </button>
+                    </div>
+                    <br>
+                </div>
+            </center>
+
+            <div id="guessarea" class="col-md-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <h3 class="text-center">Recognized Character</h3>
+                        <p id="guess" class="h1 text-center"></p>
+                        <p id="confidence" class="h5 font-weight-normal text-center"></p>
+                        <br/>
+                    </div>
+                    <input type="hidden" id="firstGuessClass" value="">
+
+                    <center>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-secondary" id="info"
+                                    onclick="handleCopyTextFromParagraph()"><i
+                                    class="fa-solid fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="wave">
     <svg width="100%" height="210px" fill="none" version="1.1"
          xmlns="http://www.w3.org/2000/svg">
@@ -61,71 +138,21 @@
             Z">
         </path>
     </svg>
+    <footer class="footer">
+        <p>&copy; 2023 Copyright |
+            Nimesh Ekanayake
+        </p>
+        <a class="btn btn-outline-light btn-floating m-1 footer-a" href="https://www.linkedin.com/in/nimeshkasun"
+           target="_blank"
+           role="button"
+        ><i class="fab fa-linkedin-in footer-icon"></i
+        ></a>
+        <a class="btn btn-outline-light btn-floating m-1 footer-a" href="https://github.com/nimeshkasun/IIT-MSc-FYP-ML"
+           target="_blank" role="button"
+        ><i class="fab fa-github footer-icon"></i
+        ></a>
+    </footer>
 </div>
-<div id="container">
-    <div class="nav-bar">
-        <div class="page-name">
-            <a href="./">
-                <img src="../static/img/logo_ui.png">
-                <div class="name"></div>
-            </a>
-        </div>
-    </div>
-
-    <div id="all" class="row justify-content-center">
-        <div class="col-md-4">
-            <h3>How it works :</h3>
-            <ol>
-                <li>Draw a Sinhala or Tamil character or upload an image with a Sinhala or Tamil character. <br/>Tip:
-                    Image
-                    should be black letters in a white/ gradient background.
-                </li>
-                <label for="filetag" class="btn btn-lg btn-primary file-upload"><i class="fa-solid fa-upload"></i>
-                    Upload</label>
-                <input type="file" id="filetag" accept="image/*">
-                <p id="suggestion"></p>
-                <li>Then, click "Recognize" to get the identified character.</li>
-                <li>Click "Clear" to clear the input image or canvas, and try again!</li>
-            </ol>
-        </div>
-
-        <div id="drawarea" class="col-md-auto">
-            <canvas id="canvas" width="250px" height="250px"></canvas>
-            <div id="inputimg">
-                <img src="" id="preview" width="250px">
-            </div>
-            <div id="buttons">
-                <button type="button" class="btn btn-danger btn-block" onclick="clearCanvas()"><i
-                        class="fa-solid fa-eraser"></i> Clear
-                </button>
-                <button type="button" class="btn btn-success btn-block" onclick="submitImage()"><i
-                        class="fa-brands fa-searchengin"></i> Recognize
-                </button>
-            </div>
-        </div>
-
-        <div id="guessarea" class="col-md-4">
-            <div class="row justify-content-center">
-                <div class="col-md-9">
-                    <h3 class="text-center">Recognized character</h3>
-                    <p id="guess" class="h1 text-center"></p>
-                    <p id="confidence" class="h5 font-weight-normal text-center"></p>
-
-                    <br>
-
-                </div>
-
-                <input type="hidden" id="firstGuessClass" value="">
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-secondary" id="info" onclick="handleCopyTextFromParagraph()"><i
-                            class="fa-solid fa-copy"></i> Copy
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../static/js/toast.js"></script>
@@ -147,21 +174,59 @@
         }
         toastr.success(`Character copied to clipboard: ` + paragraph.innerText, 'Success!')
     }
+
+
+    /*Set Canvas to mobile friendly*/
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        let canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            let x, y;
+            if (e.type === "touchmove" || e.type === "touchstart") {
+                x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+                y = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+            } else {
+                x = e.offsetX;
+                y = e.offsetY;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+
+            lastX = x;
+            lastY = y;
+        }
+
+        canvas.addEventListener("mousedown", (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+        canvas.addEventListener("mousemove", draw);
+        canvas.addEventListener("mouseup", () => isDrawing = false);
+        canvas.addEventListener("mouseout", () => isDrawing = false);
+
+        canvas.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            isDrawing = true;
+            [lastX, lastY] = [e.touches[0].clientX - canvas.getBoundingClientRect().left, e.touches[0].clientY - canvas.getBoundingClientRect().top];
+        });
+        canvas.addEventListener("touchmove", draw);
+        canvas.addEventListener("touchend", () => isDrawing = false);
+        canvas.addEventListener("touchcancel", () => isDrawing = false);
+    });
+
 </script>
 
-<footer class="footer">
-    <p>&copy; 2023 Copyright |
-        Nimesh Ekanayake
-    </p>
-    <a class="btn btn-outline-light btn-floating m-1 footer-a" href="https://www.linkedin.com/in/nimeshkasun" target="_blank"
-       role="button"
-    ><i class="fab fa-linkedin-in footer-icon"></i
-    ></a>
-    <a class="btn btn-outline-light btn-floating m-1 footer-a" href="https://github.com/nimeshkasun/IIT-MSc-FYP-ML"
-       target="_blank" role="button"
-    ><i class="fab fa-github footer-icon"></i
-    ></a>
-</footer>
 
 </body>
 </html>
