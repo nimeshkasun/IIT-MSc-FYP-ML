@@ -18,6 +18,7 @@ from sklearn.metrics import classification_report, confusion_matrix, roc_curve, 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print("Device - ", device)
 
+
 ##
 # Define 'Process' class for image processing
 ##
@@ -26,16 +27,16 @@ class Process(object):
         # Convert the image to grayscale
         convertedImg = img.convert("L")
         # Invert the image (convert white pixels to black and black pixels to white)
-        #invertedImg = ImageOps.invert(convertedImg)
+        # invertedImg = ImageOps.invert(convertedImg)
         # Apply Max filter to the inverted image (remove small noise and enhance the edges of the image)
-        #filteredImg = invertedImg.filter(ImageFilter.MaxFilter(5))
-        #filteredImg = convertedImg.filter(ImageFilter.MaxFilter(5))
+        # filteredImg = invertedImg.filter(ImageFilter.MaxFilter(5))
+        # filteredImg = convertedImg.filter(ImageFilter.MaxFilter(5))
         # Resize the image to 48x48 using Lanczos interpolation
-        #resizeRatio = 48.0 / max(filteredImg.size)
+        # resizeRatio = 48.0 / max(filteredImg.size)
         resizeRatio = 48.0 / max(convertedImg.size)
-        #newSize = tuple([int(round(x * resizeRatio)) for x in filteredImg.size])
+        # newSize = tuple([int(round(x * resizeRatio)) for x in filteredImg.size])
         newSize = tuple([int(round(x * resizeRatio)) for x in convertedImg.size])
-        #resizeImg = filteredImg.resize(newSize, Image.LANCZOS)
+        # resizeImg = filteredImg.resize(newSize, Image.LANCZOS)
         resizeImg = convertedImg.resize(newSize, Image.LANCZOS)
 
         # Convert the resized image to a numpy array
@@ -49,6 +50,7 @@ class Process(object):
         # Paste the resized image in the new image with calculated box coordinates
         result.paste(resizeImg, box)
         return result
+
 
 ##
 # Define a series of image transformations to be applied to the images
@@ -66,20 +68,19 @@ testDir = 'C:/Users/iitfypvmadmin/PycharmProjects/IIT-MSc-FYP-ML/ds_source/test'
 # Create a dataset objects('trainSet', 'validationSet', 'testSet') for training images
 # Print the number of images in each set
 ##
-#trainSet = datasets.ImageFolder(trainDir, transform)
-#validationSet = datasets.ImageFolder(validDir, transform)
-#testSet = datasets.ImageFolder(testDir, transform)
-#print("Complete Training Set - ", len(trainSet))
-#print("Complete Validation Set - ", len(validationSet))
-#print("Complete Test Set - ", len(testSet))
+# trainSet = datasets.ImageFolder(trainDir, transform)
+# validationSet = datasets.ImageFolder(validDir, transform)
+# testSet = datasets.ImageFolder(testDir, transform)
+# print("Complete Training Set - ", len(trainSet))
+# print("Complete Validation Set - ", len(validationSet))
+# print("Complete Test Set - ", len(testSet))
 
 ##
 # Load train, validation and test data using PyTorch DataLoader
 ##
-#trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
-#validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
-#testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
-
+# trainLoader = torch.utils.data.DataLoader(trainSet, batch_size=64, shuffle=True)
+# validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shuffle=True)
+# testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 
 
 #####
@@ -100,7 +101,6 @@ validationLoader = torch.utils.data.DataLoader(validationSet, batch_size=64, shu
 testLoader = torch.utils.data.DataLoader(testSet, batch_size=64, shuffle=True)
 
 #####
-
 
 
 ##
@@ -137,6 +137,7 @@ for i in range(len(char_list)):
 
 print("Available Classes", classes)
 
+
 ##
 # Initialize the weights of the network
 ##
@@ -146,6 +147,7 @@ def initializeWeights(m):
         nn.init.kaiming_normal_(m.weight)
         # Initialize bias terms to zeros
         nn.init.zeros_(m.bias)
+
 
 ##
 # Neural network architecture:
@@ -193,14 +195,13 @@ class Net(nn.Module):
         self.fc3 = nn.Linear(256, 62)
 
     def forward(self, x):
-        #print('Input size:', x.size())
+        # print('Input size:', x.size())
         # Convolutional layer 1 with batch normalization, followed by ReLU activation
         x = F.relu(self.bn1(self.conv1(x)))
 
         # Max pooling layer 1 with a kernel size of 2x2 and stride of 2
         # Convolutional layer 2 with batch normalization, followed by ReLU activation
         x = self.pool1(F.relu(self.bn2(self.conv2(x))))
-
 
         # Convolutional layer 3 with batch normalization, followed by ReLU activation
         x = F.relu(self.bn3(self.conv3(x)))
@@ -209,7 +210,6 @@ class Net(nn.Module):
         # Convolutional layer 4 with batch normalization, followed by ReLU activation
         x = self.pool2(F.relu(self.bn4(self.conv4(x))))
 
-
         # Convolutional layer 5 with batch normalization, followed by ReLU activation
         x = F.relu(self.bn5(self.conv5(x)))
 
@@ -217,27 +217,27 @@ class Net(nn.Module):
         # Convolutional layer 6 with batch normalization, followed by ReLU activation
         x = self.pool3(F.relu(self.bn6(self.conv6(x))))
 
-
         # Flatten the output of the convolutional layers
         x = x.view(-1, 64 * 8 * 8)
-        #print('After flattening:', x.size())
+        # print('After flattening:', x.size())
         # Fully connected layers with batch normalization, followed by ReLU activation
         x = F.relu(self.bn7(self.fc1(x)))
         x = F.relu(self.bn8(self.fc2(x)))
 
-        #if x.size(0) == 1 and x.size(1) == 1024:
+        # if x.size(0) == 1 and x.size(1) == 1024:
         #    x = F.relu(self.fc1(x))
         #    x = F.relu(self.fc2(x))
-        #else:
+        # else:
         #    x = F.relu(self.bn7(self.fc1(x)))
-            #print('After fc1:', x.size())
+        # print('After fc1:', x.size())
         #    x = F.relu(self.bn8(self.fc2(x)))
-            #print('After fc2:', x.size())
+        # print('After fc2:', x.size())
 
         # Output layer with no activation function applied
         x = self.fc3(x)
-        #print('Output size:', x.size())
+        # print('Output size:', x.size())
         return x
+
 
 ##
 # Define a function to get all predictions of a given neural network on a given data loader
@@ -261,6 +261,7 @@ def get_all_preds(model, loader):
         )
     # Return tensor containing all predictions for all data in the loader
     return all_preds
+
 
 ##
 # Function to plot a confusion matrix
@@ -299,6 +300,7 @@ def plot_confusion_matrix(cm, classes, title, normalize=False, cmap=plt.cm.Blues
     plt.xlabel('Predicted label')
     plt.show()
 
+
 ##
 # Create a new neural network model, initialize its weights
 # Move it to the specified device (e.g. GPU)
@@ -336,7 +338,7 @@ running_losses = []
 # Loop through 156 epochs
 # !!! For now, it loops through 5 for the code testing and till the system is in an acceptable state
 ##
-#for epoch in range(156): 24 | 62 | 156
+# for epoch in range(156): 24 | 62 | 156
 print('----------------------------------------------------')
 for epoch in range(156):
     # Append current epoch number to the x list
@@ -497,6 +499,7 @@ plot_confusion_matrix(cmTesting, classes, "Confusion Matrix for Test Set")
 print("Classification report")
 print(classification_report(lableList, predictedList))
 
+
 ##
 # Function for getting the actual labels and class probabilities for a given class
 ##
@@ -513,6 +516,7 @@ def test_class_probabilities(which_class):
             actuals.extend(target.view_as(prediction) == which_class)
             probabilities.extend(np.exp(output[:, which_class]))
     return [i.item() for i in actuals], [i.item() for i in probabilities]
+
 
 ##
 # Function for plotting the ROC curve for a list of classes
@@ -546,6 +550,7 @@ def plot_AUC_ROC_curve(classList):
     plt.legend(loc="lower right")
     plt.show()
 
+
 ##
 # Plot ROC curves for multiple sets of classes
 # !!! Once system in an acceptable state, for final training, add below codes for all classes in both sinhala and tamil dataset classes
@@ -553,7 +558,6 @@ def plot_AUC_ROC_curve(classList):
 
 
 print("AUC ROC Curve plotting started!")
-
 
 plot_AUC_ROC_curve([0, 1, 2, 3, 4])
 print("AUC ROC Curve (0-4) - Done!")

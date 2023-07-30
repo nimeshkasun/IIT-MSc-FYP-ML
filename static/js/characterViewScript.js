@@ -123,7 +123,7 @@ function predictImage(img) {
                 positionClass: "toast-bottom-right"
             }
             toastr.error(`Input could be a non-character!`, 'Identification Concern!');
-        }else if (reponseObj._firstGuessConfidentLvl < 350) {
+        } else if (reponseObj._firstGuessConfidentLvl < 350) {
             toastr.options = {
                 preventDuplicates: true,
                 timeOut: 4000,
