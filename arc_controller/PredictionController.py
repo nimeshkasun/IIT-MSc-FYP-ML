@@ -80,7 +80,7 @@ def url_to_img(dataURL):
     # Save the image to the specified folder with the random file name
     file_path_non_processed = os.path.join(folder_path, file_name_non_processed)
     file_path = os.path.join(folder_path, file_name)
-    converted.save(file_path_non_processed)
+    #converted.save(file_path_non_processed)
     result.save(file_path)
     print("Canvas processed image saved to:", file_path)
 
